@@ -1,0 +1,9 @@
+# To save space in project git, we don't include the build files.
+build
+
+# Binary files
+*.o
+*.so
+
+# Linux stuff
+.directory
