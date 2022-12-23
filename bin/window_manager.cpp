@@ -1,12 +1,12 @@
 #include "window_manager.hpp"
 
 
-namespace mkeWindow {
+namespace mke {
   uint32_t window_width = 1920;
   uint32_t window_height = 1080;
 
 
-  void init() {
+    void initWindow() {
     // Connects to the error callback inside of 'logger'.
     glfwSetErrorCallback(glfw_error_callback);
 
@@ -15,15 +15,15 @@ namespace mkeWindow {
 
     // Configuring GLFW:
     glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, mkeCore::OPEN_GL_VERSION.major);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, mkeCore::OPEN_GL_VERSION.minor);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, OPEN_GL_VERSION.major);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, OPEN_GL_VERSION.minor);
     glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
     glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     // Creating the window:
-    String window_title = *mkeCore::GAME_NAME + " - " + mkeCore::GAME_VERSION->toString();
+    String window_title = *GAME_NAME + " - " + GAME_VERSION->toString();
     window_id = glfwCreateWindow(
       window_width,
       window_height,
@@ -48,6 +48,8 @@ namespace mkeWindow {
 
     glfwSwapInterval(1); // Enable buffer swapping (V-Sync)
     glfwShowWindow(window_id); // Now that window is ready, make it visible
+
+    glfwSetFramebufferSizeCallback(window_id, frameBufferSizeCallback);
   }
 
 

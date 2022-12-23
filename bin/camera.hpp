@@ -4,7 +4,7 @@
 #include "toolbox/logger.hpp"
 
 
-namespace mkeCamera {
+namespace mke {
   enum CAMERA_MOVEMENT {MOVE_UP, MOVE_DOWN, MOVE_LEFT, MOVE_RIGHT};
   struct Camera {glm::vec3 position{0}; float pitch; float yaw;};
 

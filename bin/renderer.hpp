@@ -8,19 +8,13 @@
 #include "toolbox/math.hpp"
 
 
-namespace mkeRenderer {
-  static const float FOV = 70.0f;
-  static const float NEAR_PLANE = 0.1f;
-  static const float FAR_PLANE = 1000.0f;
-
+namespace mke {
   inline glm::mat4 projectionMatrix;
 
 
-  extern void prepare();
+  extern void prepareRenderer();
  
   extern void render(RawModel model);
   extern void render(TexturedModel texturedModel);
-  extern void render(mkeNode3D::Node3D node, mkeShaderProgram::StaticShader shader);
-
-  extern void createProjectionMatrix(mkeShaderProgram::StaticShader shader);
+  extern void render(Node3D node, StaticShader shader);
 }

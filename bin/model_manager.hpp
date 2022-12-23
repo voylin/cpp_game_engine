@@ -6,11 +6,10 @@
 #include "models.hpp"
 
 
-namespace mkeModelManager {
-  // These are vectors (v_*type*)
-  inline v_GLuint vaos;
-  inline v_GLuint vbos;
-  inline v_GLuint textures;
+namespace mke {
+  static v_GLuint vaos;
+  static v_GLuint vbos;
+  static v_GLuint textures;
   
 
   extern RawModel loadToVAO(v_float positions, v_float textureCoords, v_uint indices);
@@ -21,5 +20,5 @@ namespace mkeModelManager {
   extern void storeDataInAttributeList(int attributeNr, int coordSize, v_float data);
 
   extern void unbindVAO();
-  extern void cleanUp();
+  extern void cleanUpModelManager();
 }

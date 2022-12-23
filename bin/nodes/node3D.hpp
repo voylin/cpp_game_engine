@@ -4,7 +4,7 @@
 #include "../model_manager.hpp"
 
 
-namespace mkeNode3D {
+namespace mke {
   struct Node3D {
     TexturedModel model;
     glm::vec3 position{0};
@@ -18,28 +18,28 @@ namespace mkeNode3D {
   }
 
 
-  inline void increasePosition(Node3D &node, float dx, float dy, float dz) {
+  inline void node3DIncreasePosition(Node3D &node, float dx, float dy, float dz) {
     node.position.x += dx;
     node.position.y += dy;
     node.position.z += dz;
   }
 
 
-  inline void increasePosition(Node3D &node, glm::vec3 dir) {
+  inline void node3DIncreasePosition(Node3D &node, glm::vec3 dir) {
     node.position.x += dir.x;
     node.position.y += dir.y;
     node.position.z += dir.z;
   }
 
 
-  inline void increaseRotation(Node3D &node, float rx, float ry, float rz) {
+  inline void node3DIncreaseRotation(Node3D &node, float rx, float ry, float rz) {
     node.rotation.x += rx;
     node.rotation.y += ry;
     node.rotation.z += rz;
   }
   
   
-  inline void increaseRotation(Node3D &node, glm::vec3 rot) {
+  inline void node3DIncreaseRotation(Node3D &node, glm::vec3 rot) {
     node.rotation.x += rot.x;
     node.rotation.y += rot.y;
     node.rotation.z += rot.z;

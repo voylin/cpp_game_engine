@@ -6,8 +6,8 @@
 #include "window_manager.hpp"
 #include "toolbox/time_manager.hpp"
 
-namespace mkeInput {
-  extern bool wireframe_mode; // true = line, false = fill
+namespace mke {
+  static bool wireframe_mode = false; // true = line, false = fill
 
 
   extern void inputKeyCallBack(GLFWwindow* window, int key, int scancode, int action, int mods);

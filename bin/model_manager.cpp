@@ -4,8 +4,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "../include/stb_image.h"
 
-namespace mkeModelManager
-{
+namespace mke {
   RawModel loadToVAO(v_float positions, v_float textureCoords, v_uint indices)
   {
     GLuint vaoID = createVAO();
@@ -93,7 +92,7 @@ namespace mkeModelManager
     glBindVertexArray(0);
   }
 
-  void cleanUp()
+  void cleanUpModelManager()
   {
     if (vaos.size() != 0)
     {

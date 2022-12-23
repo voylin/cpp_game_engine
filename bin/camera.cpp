@@ -1,7 +1,7 @@
 #include "camera.hpp"
 
 
-namespace mkeCamera {
+namespace mke {
   void moveCamera(Camera &camera, CAMERA_MOVEMENT movement) {
     switch (movement) {
       case CAMERA_MOVEMENT::MOVE_UP:    camera.position.z -= 0.02f;

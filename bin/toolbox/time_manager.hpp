@@ -3,14 +3,14 @@
 #include "types.hpp"
 
 
-namespace mkeTime {
-  inline float timeStarted;
-  inline float beginTime;
-  inline float endTime;
-  inline float delta = -1.0f;
+namespace mke {
+  static float timeStarted;
+  static float beginTime;
+  static float endTime;
+  static float delta = -1.0f;
 
 
-  inline void init() {
+  inline void initTime() {
     timeStarted = static_cast<float>(glfwGetTime());
   }
 
@@ -36,4 +36,5 @@ namespace mkeTime {
   // If time is in miliseconds than: 1000/ delta
   // TODO: Check this
   inline float getFPS() { return 1.0f / delta; }
+  inline String getFPSstring() { return std::to_string(1.0f / delta); }
 }
