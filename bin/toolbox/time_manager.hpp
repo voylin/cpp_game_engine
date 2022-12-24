@@ -2,39 +2,43 @@
 
 #include "types.hpp"
 
+#include <mutex>
+#include <chrono>
+using std::chrono::high_resolution_clock;
+
 
 namespace mke {
-  static float timeStarted;
-  static float beginTime;
-  static float endTime;
-  static float delta = -1.0f;
+  inline static std::mutex mutexTimeManager;
+  inline std::chrono::time_point<high_resolution_clock> timeStarted, beginTime, endTime;
+  inline double delta;
 
+  inline void initTime() { timeStarted = high_resolution_clock::now(); }
 
-  inline void initTime() {
-    timeStarted = static_cast<float>(glfwGetTime());
-  }
-
-
-  inline float getRunTime() {
-    return (static_cast<float>(glfwGetTime()) - timeStarted);
+  inline double getRunTime() {
+    return std::chrono::duration_cast<std::chrono::duration<double>>(
+      high_resolution_clock::now() - timeStarted).count();
   }
 
 
   inline void setDeltaStartTimes() {
-    beginTime = glfwGetTime();
-    endTime = glfwGetTime();
+    beginTime = high_resolution_clock::now();
+    endTime = high_resolution_clock::now();
   }
 
 
   inline void setDeltaTimes() {
-    endTime = glfwGetTime();
-    delta = endTime - beginTime;
+    endTime = std::chrono::high_resolution_clock::now();
+    std::lock_guard<std::mutex> lock(mutexTimeManager);
+    delta = std::chrono::duration_cast<std::chrono::duration<double>>(endTime - beginTime).count();
     beginTime = endTime;
   }
 
-  // Possibly not working correctly
-  // If time is in miliseconds than: 1000/ delta
-  // TODO: Check this
-  inline float getFPS() { return 1.0f / delta; }
-  inline String getFPSstring() { return std::to_string(1.0f / delta); }
+  inline double getFPS() {
+    std::lock_guard<std::mutex> lock(mutexTimeManager);
+    return 1.0 / delta;
+  }
+  inline String getFPSstring(bool rounded = true) { 
+    if (!rounded) return std::to_string(getFPS());
+    return std::to_string(std::round(static_cast<float>(getFPS()) * 100.0) / 100.0);
+  }
 }

@@ -16,8 +16,6 @@ namespace mke {
 
     // Get FPS:
     if (key == GLFW_KEY_F && action == GLFW_PRESS && mods == GLFW_MOD_CONTROL) {
-      // String fps = std::to_string(std::roundf(getFPS() * 100) / 100);
-      // TODO: Fix this as it does not print the fps correctly anymore
       print_info(getFPSstring() + " FPS");
     }
   }

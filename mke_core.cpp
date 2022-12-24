@@ -14,7 +14,6 @@ namespace mke {
     GAME_VERSION = game_version;
 
     initWindow();
-    initTime();
     createStaticShader(); // Main shader creation
     createProjectionMatrix(staticShader);
 
@@ -27,6 +26,8 @@ namespace mke {
 
   static void run() {
     print_engine("Starting loop.");
+
+    initTime();
     // Temp Code:
     std::vector<float> vertices = {
       -0.5f,  0.5f, 0.f,  // V0
