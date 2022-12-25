@@ -15,7 +15,7 @@ namespace mke {
 
     initWindow();
     createStaticShader(); // Main shader creation
-    createProjectionMatrix(staticShader);
+    createProjectionMatrix();
 
     // Setting callbacks:
     glfwSetKeyCallback(window_id, inputKeyCallBack);
@@ -48,7 +48,7 @@ namespace mke {
 
     Model model = loadToVAO(vertices, textureCoords, indices, Texture{loadTexture("wall.jpg")});
 
-    Node3D node{model, glm::vec3(0, 0, -5), glm::vec3(0), 1.0f};
+    Node3D node{model, glm::vec3(0, 0, -2), glm::vec3(0), 1.0f};
     // End Temp
 
     setDeltaStartTimes();

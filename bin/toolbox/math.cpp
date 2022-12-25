@@ -31,7 +31,7 @@ namespace mke {
   }
 
   
-  void createProjectionMatrix(StaticShader shader) {
+  void createProjectionMatrix() {
     const float RENDER_FOV = 70.0f;
     const float RENDER_NEAR_PLANE = 0.1f;
     const float RENDER_FAR_PLANE = 1000.0f;
@@ -49,8 +49,8 @@ namespace mke {
     projectionMatrix[3][2] = -((2 * RENDER_NEAR_PLANE * RENDER_FAR_PLANE) / frustum_length);
     projectionMatrix[3][3] = 0;
   
-    startShaderProgram(shader.shaderProgram);
-    loadProjectionMatrix(shader, projectionMatrix);
+    startShaderProgram(staticShader.shaderProgram);
+    loadProjectionMatrix(staticShader, projectionMatrix);
     stopShaderProgram();
   }
 }

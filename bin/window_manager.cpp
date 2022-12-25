@@ -63,5 +63,6 @@ namespace mke {
     window_width = width;
     window_height = height;
     glViewport(0, 0, width, height);
+    createProjectionMatrix();
   }
 }
