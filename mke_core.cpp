@@ -3,12 +3,12 @@
 
 namespace mke {
   void startEngine(const String *game_name, const Version *game_version) {
-    print_info("Starting " + ENGINE_NAME);
-    print_info("Engine version: " + ENGINE_VERSION.toString())
-    print_info("GLFW: " + static_cast<String>(glfwGetVersionString()));
-    print_info("OpenGL: " + OPEN_GL_VERSION.toSmallString());
-    print_info("Game name: " + *game_name);
-    print_info("Game version: " + game_version->toString());
+    printInfo("Starting " + ENGINE_NAME);
+    printInfo("Engine version: " + ENGINE_VERSION.toString())
+    printInfo("GLFW: " + static_cast<String>(glfwGetVersionString()));
+    printInfo("OpenGL: " + OPEN_GL_VERSION.toSmallString());
+    printInfo("Game name: " + *game_name);
+    printInfo("Game version: " + game_version->toString());
 
     GAME_NAME = game_name;
     GAME_VERSION = game_version;
@@ -25,7 +25,7 @@ namespace mke {
 
 
   static void run() {
-    print_engine("Starting loop.");
+    printEngine("Starting loop.");
 
     initTime();
     // Temp Code:
@@ -83,12 +83,12 @@ namespace mke {
 
 
   static void shutdownEngine() {
-    print_engine("Shutting down engine.");
+    printEngine("Shutting down engine.");
 
     cleanUpShaderProgram(staticShader.shaderProgram);
     cleanUpModelManager();
     closeWindow();
 
-    print_engine("Shutdown complete!");
+    printEngine("Shutdown complete!");
   }
 }

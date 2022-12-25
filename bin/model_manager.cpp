@@ -55,7 +55,7 @@ namespace mke {
       glGenerateMipmap(GL_TEXTURE_2D);
     }
     else
-      throw print_error("Failed to load texture '" + fileName + "'!");
+      throw printError("Failed to load texture '" + fileName + "'!");
 
     stbi_image_free(data);
 

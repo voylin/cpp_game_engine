@@ -8,7 +8,7 @@ namespace mke {
       case CAMERA_MOVEMENT::MOVE_DOWN:  camera.position.z += 0.02f;
       case CAMERA_MOVEMENT::MOVE_LEFT:  camera.position.x -= 0.02f;
       case CAMERA_MOVEMENT::MOVE_RIGHT: camera.position.x += 0.02f;
-      default: print_error("Incorrect camera movement!");
+      default: printError("Incorrect camera movement!");
     }
   }
 }

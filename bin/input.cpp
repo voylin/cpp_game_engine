@@ -16,7 +16,7 @@ namespace mke {
 
     // Get FPS:
     if (key == GLFW_KEY_F && action == GLFW_PRESS && mods == GLFW_MOD_CONTROL) {
-      print_info(getFPSstring() + " FPS");
+      printInfo(getFPSstring() + " FPS");
     }
   }
 

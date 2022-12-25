@@ -11,7 +11,7 @@ namespace mke {
     glfwSetErrorCallback(glfw_error_callback);
 
     if (!glfwInit())
-      throw print_fatal("Unable to initialize GLFW!");
+      throw printFatal("Unable to initialize GLFW!");
 
     // Configuring GLFW:
     glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
@@ -33,7 +33,7 @@ namespace mke {
     );
 
     if (window_id == nullptr)
-      throw print_fatal("Failed to create window!");
+      throw printFatal("Failed to create window!");
 
     glfwMakeContextCurrent(window_id);
 
@@ -41,7 +41,7 @@ namespace mke {
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
       glfwDestroyWindow(window_id);
       glfwTerminate();
-      throw print_fatal("GLAD could not initialize!");
+      throw printFatal("GLAD could not initialize!");
     }
 
     glViewport(0, 0, window_width, window_height);
