@@ -5,10 +5,10 @@
 
 
 namespace mke {
-  enum CAMERA_MOVEMENT {MOVE_UP, MOVE_DOWN, MOVE_LEFT, MOVE_RIGHT};
+  enum class CameraMovement {MoveUp, MoveDown, MoveLeft, MoveRight};
   struct Camera {glm::vec3 position{0}; float pitch; float yaw;};
 
   inline Camera mainCamera;
 
-  extern void moveCamera(Camera &camera, CAMERA_MOVEMENT movement);
+  extern void moveCamera(Camera &camera, CameraMovement movement);
 }

@@ -24,16 +24,16 @@ namespace mke {
   void processInput() {
     // Camera controls:
     if (glfwGetKey(window_id, GLFW_KEY_W) == GLFW_PRESS) { // Move Camera up
-      moveCamera(mainCamera, CAMERA_MOVEMENT::MOVE_UP);
+      moveCamera(mainCamera, CameraMovement::MoveUp);
     }
     if (glfwGetKey(window_id, GLFW_KEY_S) == GLFW_PRESS) { // Move Camera Down
-      moveCamera(mainCamera, CAMERA_MOVEMENT::MOVE_DOWN);
+      moveCamera(mainCamera, CameraMovement::MoveDown);
     }
     if (glfwGetKey(window_id, GLFW_KEY_A) == GLFW_PRESS) { // Move Camera Left
-      moveCamera(mainCamera, CAMERA_MOVEMENT::MOVE_LEFT);
+      moveCamera(mainCamera, CameraMovement::MoveLeft);
     }
     if (glfwGetKey(window_id, GLFW_KEY_D) == GLFW_PRESS) { // Move Camera Right
-      moveCamera(mainCamera, CAMERA_MOVEMENT::MOVE_RIGHT);
+      moveCamera(mainCamera, CameraMovement::MoveRight);
     }
   }
 }
