@@ -5,8 +5,7 @@
 #include "../include/stb_image.h"
 
 namespace mke {
-  RawModel loadToVAO(v_float positions, v_float textureCoords, v_uint indices)
-  {
+  Model loadToVAO(v_float positions, v_float textureCoords, v_uint indices) {
     GLuint vaoID = createVAO();
     bindIndicesBuffer(indices);
     storeDataInAttributeList(0, 3, positions);
@@ -16,11 +15,18 @@ namespace mke {
 
     unbindVAO();
 
-    return RawModel{vaoID, static_cast<GLuint>(indices.size())};
+    return Model{vaoID, static_cast<GLuint>(indices.size())};
   }
 
-  GLuint createVAO()
-  {
+
+  Model loadToVAO(v_float positions, v_float textureCoords, v_uint indices, Texture texture) {
+    Model model = loadToVAO(positions, textureCoords, indices);
+    model.texture = texture;
+    return model;
+  }
+
+
+  GLuint createVAO() {
     GLuint vaoID;
     glGenVertexArrays(1, &vaoID); // 1 is the amount of VAO's
     glBindVertexArray(vaoID);
@@ -28,8 +34,8 @@ namespace mke {
     return vaoID;
   }
 
-  GLuint loadTexture(String fileName)
-  {
+
+  GLuint loadTexture(String fileName) {
     GLuint texture;
     glGenTextures(1, &texture);
     glBindTexture(GL_TEXTURE_2D, texture);
@@ -46,8 +52,7 @@ namespace mke {
     int width, height, nrChannels;
     stbi_set_flip_vertically_on_load(true);
     unsigned char *data = stbi_load(("textures/" + fileName).c_str(), &width, &height, &nrChannels, 0);
-    if (data)
-    {
+    if (data) {
       if (fileName.find(".png") != String::npos)
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
       else
@@ -63,8 +68,8 @@ namespace mke {
     return texture;
   }
 
-  void bindIndicesBuffer(v_uint indices)
-  {
+
+  void bindIndicesBuffer(v_uint indices) {
     GLuint vboID;
     glGenBuffers(1, &vboID);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboID);
@@ -73,8 +78,8 @@ namespace mke {
     vbos.push_back(vboID);
   }
 
-  void storeDataInAttributeList(int attributeNr, int coordSize, v_float data)
-  {
+
+  void storeDataInAttributeList(int attributeNr, int coordSize, v_float data) {
     GLuint vboID;
     glGenBuffers(1, &vboID);
     glBindBuffer(GL_ARRAY_BUFFER, vboID);
@@ -87,33 +92,19 @@ namespace mke {
     vbos.push_back(vboID);
   }
 
-  void unbindVAO()
-  {
-    glBindVertexArray(0);
-  }
 
-  void cleanUpModelManager()
-  {
-    if (vaos.size() != 0)
-    {
-      for (int i = 0; i <= vaos.size(); i++)
-      {
-        glDeleteVertexArrays(1, &vaos.data()[i]);
-      }
+  void unbindVAO() { glBindVertexArray(0); }
+
+
+  void cleanUpModelManager() {
+    if (vaos.size() != 0) {
+      for (int i = 0; i <= vaos.size(); i++) { glDeleteVertexArrays(1, &vaos.data()[i]); }
     }
-    if (vbos.size() != 0)
-    {
-      for (int i = 0; i <= vbos.size(); i++)
-      {
-        glDeleteBuffers(1, &vbos.data()[i]);
-      }
+    if (vbos.size() != 0) {
+      for (int i = 0; i <= vbos.size(); i++) { glDeleteBuffers(1, &vbos.data()[i]); }
     }
-    if (textures.size() != 0)
-    {
-      for (int i = 0; i <= textures.size(); i++)
-      {
-        glDeleteTextures(1, &textures.data()[i]);
-      }
+    if (textures.size() != 0) {
+      for (int i = 0; i <= textures.size(); i++) { glDeleteTextures(1, &textures.data()[i]); }
     }
   }
 }

@@ -46,12 +46,9 @@ namespace mke {
       1,0   // V3
     };
 
-    RawModel model = loadToVAO(vertices, textureCoords, indices);
-    Texture texture{loadTexture("wall.jpg")};
+    Model model = loadToVAO(vertices, textureCoords, indices, Texture{loadTexture("wall.jpg")});
 
-    TexturedModel texturedModel{model, texture};
-
-    Node3D node{texturedModel, glm::vec3(0, 0, -5), glm::vec3(0), 1.0f};
+    Node3D node{model, glm::vec3(0, 0, -5), glm::vec3(0), 1.0f};
     // End Temp
 
     setDeltaStartTimes();
@@ -65,7 +62,7 @@ namespace mke {
       startShaderProgram(staticShader.shaderProgram);
       node3DIncreaseRotation(node, {0.01,0.01,0});
       loadViewMatrix(staticShader, mainCamera);
-      render(node, staticShader);
+      render(node);
       stopShaderProgram();
       // End Temp
 

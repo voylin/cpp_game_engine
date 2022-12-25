@@ -17,7 +17,7 @@
 #include <fstream>
 #include <sstream>
 
-// TYPE STRING
+// String
 #include <string>
 #include <cstring>
 typedef std::string String;
@@ -27,7 +27,9 @@ typedef std::vector<GLuint>       v_GLuint;
 typedef std::vector<float>        v_float;
 typedef std::vector<unsigned int> v_uint;
 
-// STRUCT VERSION
+
+// Structs:
+
 struct Version {
   unsigned int major, minor, patch;
 
@@ -35,7 +37,7 @@ struct Version {
   const String toSmallString() const { return std::to_string(major)+'.'+std::to_string(minor); }
 };
 
-// STRUCT TEXTURE
-struct Texture {
-  GLuint textureID;
-};
+
+struct Vertex { float x, y, z; };
+struct TexCoord { float u, v; };
+struct Texture { GLuint textureID; };

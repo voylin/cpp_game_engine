@@ -12,7 +12,8 @@ namespace mke {
   static v_GLuint textures;
   
 
-  extern RawModel loadToVAO(v_float positions, v_float textureCoords, v_uint indices);
+  extern Model loadToVAO(v_float positions, v_float textureCoords, v_uint indices);
+  extern Model loadToVAO(v_float positions, v_float textureCoords, v_uint indices, Texture texture);
   extern GLuint createVAO();
   
   extern GLuint loadTexture(String fileName);

@@ -50,12 +50,13 @@ inline std::runtime_error printFatal(const String message) {
 }
 
 
+// Callback function for GLFW error messages
 inline void glfw_error_callback(int err_code, const char *description) {
   printError("GLFW error code: '" + std::to_string(err_code) + "'.\n\tDescription: " + static_cast<String>(description));
 }
 
 
-// These defines make it easier in code for calling the printLog function.
+// Macros to make calling the printLog function easier
 #define printInfo(message) printLog(LogLevel::Info, message);
 #define printEngine(message) printLog(LogLevel::Engine, message); // For in-engine related code
 #define printGame(message) printLog(LogLevel::Game, message);     // For in-game related code

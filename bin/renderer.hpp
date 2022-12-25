@@ -14,7 +14,5 @@ namespace mke {
 
   extern void prepareRenderer();
  
-  extern void render(RawModel model);
-  extern void render(TexturedModel texturedModel);
-  extern void render(Node3D node, StaticShader shader);
+  extern void render(Node3D node);
 }

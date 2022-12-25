@@ -6,14 +6,14 @@
 
 namespace mke {
   struct Node3D {
-    TexturedModel model;
+    Model model;
     glm::vec3 position{0};
     glm::vec3 rotation{0};
     float scale = 1;
   };
 
 
-  inline Node3D createNode3D(TexturedModel model, glm::vec3 position, glm::vec3 rotation, float scale) {
+  inline Node3D createNode3D(Model model, glm::vec3 position, glm::vec3 rotation, float scale) {
     return Node3D{model, position, rotation, scale};
   }
 
