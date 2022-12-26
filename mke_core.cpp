@@ -29,21 +29,21 @@ namespace mke {
 
     initTime();
     // Temp Code:
-    std::vector<float> vertices = {
-      -0.5f,  0.5f, 0.f,  // V0
-      -0.5f, -0.5f, 0.f,  // V1
-       0.5f, -0.5f, 0.f,  // V2
-       0.5f,  0.5f, 0.f   // V3
+    v_Vertex vertices = {
+      {-0.5f,  0.5f, 0.f},  // V0
+      {-0.5f, -0.5f, 0.f},  // V1
+      { 0.5f, -0.5f, 0.f},  // V2
+      { 0.5f,  0.5f, 0.f}   // V3
     };
-    std::vector<unsigned int> indices = {
+    v_uint indices = {
       0,1,3,  // Top left
       3,1,2   // Bottom Right
     };
-    std::vector<float> textureCoords = {
-      0,0,  // V0
-      0,1,  // V1
-      1,1,  // V2
-      1,0   // V3
+    v_TexCoord textureCoords = {
+      {0,0},  // V0
+      {0,1},  // V1
+      {1,1},  // V2
+      {1,0}   // V3
     };
 
     Model model = loadToVAO(vertices, textureCoords, indices, Texture{loadTexture("wall.jpg")});

@@ -5,10 +5,10 @@
 #include "../include/stb_image.h"
 
 namespace mke {
-  Model loadToVAO(v_float positions, v_float textureCoords, v_uint indices) {
+  Model loadToVAO(v_Vertex vertices, v_TexCoord textureCoords, v_uint indices) {
     GLuint vaoID = createVAO();
     bindIndicesBuffer(indices);
-    storeDataInAttributeList(0, 3, positions);
+    storeDataInAttributeList(0, 3, vertices);
 
     if (textureCoords.size() > 0) // Making the creation of raw models still possible
       storeDataInAttributeList(1, 2, textureCoords);
@@ -19,8 +19,8 @@ namespace mke {
   }
 
 
-  Model loadToVAO(v_float positions, v_float textureCoords, v_uint indices, Texture texture) {
-    Model model = loadToVAO(positions, textureCoords, indices);
+  Model loadToVAO(v_Vertex vertices, v_TexCoord textureCoords, v_uint indices, Texture texture) {
+    Model model = loadToVAO(vertices, textureCoords, indices);
     model.texture = texture;
     return model;
   }
@@ -79,14 +79,24 @@ namespace mke {
   }
 
 
-  void storeDataInAttributeList(int attributeNr, int coordSize, v_float data) {
+  template <typename T>
+  void storeDataInAttributeList(int attributeNr, int coordSize, T& data) {
     GLuint vboID;
     glGenBuffers(1, &vboID);
     glBindBuffer(GL_ARRAY_BUFFER, vboID);
-    glBufferData(GL_ARRAY_BUFFER, data.size() * sizeof(float), data.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, data.size() * sizeof(T), data.data(), GL_STATIC_DRAW);
 
-    glVertexAttribPointer(attributeNr, coordSize, GL_FLOAT, GL_FALSE, coordSize * sizeof(float), (void *)0);
-    // glEnableVertexAttribArray(0);
+    // Check if T is a Vertex or TexCoord struct
+    if constexpr (std::is_same_v<T, v_Vertex>) {
+      glVertexAttribPointer(attributeNr, coordSize, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)offsetof(Vertex, x));
+      glVertexAttribPointer(attributeNr + 1, coordSize, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)offsetof(Vertex, y));
+      glVertexAttribPointer(attributeNr + 2, coordSize, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)offsetof(Vertex, z));
+    }
+    else if constexpr (std::is_same_v<T, v_TexCoord>) {
+      glVertexAttribPointer(attributeNr, coordSize, GL_FLOAT, GL_FALSE, sizeof(TexCoord), (void *)offsetof(TexCoord, u));
+      glVertexAttribPointer(attributeNr + 1, coordSize, GL_FLOAT, GL_FALSE, sizeof(TexCoord), (void *)offsetof(TexCoord, v));
+    }
+
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     vbos.push_back(vboID);
