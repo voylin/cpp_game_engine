@@ -2,6 +2,7 @@
 
 #include "types.hpp"
 #include "logger.hpp"
+#include "file_reader.hpp"
 
 // TODO: Check if I can make some of these functions static instead.
 

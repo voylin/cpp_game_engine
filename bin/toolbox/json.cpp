@@ -245,15 +245,7 @@ namespace mke {
 
 
   JsonValue parseJsonFile(const std::string &filename) {
-    String json, line;
-    std::ifstream jsonFile(filename);
-    if (jsonFile.is_open()) {
-      while (std::getline(jsonFile, line))
-        json += line + '\n';
-    }
-    jsonFile.close();
-    
-    return parseJson(json);
+    return parseJson(getFileData(filename));
   }
 
 
