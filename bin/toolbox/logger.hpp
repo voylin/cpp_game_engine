@@ -29,9 +29,6 @@ inline void printLog(LogLevel level, const String message) {
     case LogLevel::Error:
       level_string = "\033[31;1m[ERROR]: \033[0;31m";
       break;
-    case LogLevel::Fatal:
-      level_string = "\033[31;1m[FATAL]: \033[0;31m";
-      break;
   }
   
   std::cerr << level_string << message << "\033[0m" << std::endl;
@@ -41,12 +38,6 @@ inline void printLog(LogLevel level, const String message) {
 inline std::runtime_error printError(const String message) {
   printLog(LogLevel::Error, message);
   return std::runtime_error{"[ERROR]: " + message};;
-}
-
-
-inline std::runtime_error printFatal(const String message) {
-  printLog(LogLevel::Fatal, message);
-  return std::runtime_error{"[FATAL]: " + message};
 }
 
 

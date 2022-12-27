@@ -18,7 +18,7 @@ namespace mke {
     glGetProgramiv(program.programID, GL_LINK_STATUS, &success);
     if (!success) {
       glGetProgramInfoLog(program.programID, 1024, NULL, infoLog);
-      throw printFatal("Shader program linking has failed!\n\tDetails: '" + static_cast<String>(infoLog) + "'!");
+      throw printError("Shader program linking has failed!\n\tDetails: '" + static_cast<String>(infoLog) + "'!");
     }
 
     glDeleteShader(program.vertexShaderID);
@@ -126,7 +126,7 @@ namespace mke {
       shaderFile.close();
       shaderCode = shaderStream.str();
     } catch (std::ifstream::failure e)
-    { throw printFatal("Shader file not successfully read!\n\tDetails: '" + static_cast<String>(e.what()) + "'!"); }
+    { throw printError("Shader file not successfully read!\n\tDetails: '" + static_cast<String>(e.what()) + "'!"); }
 
     // Make the shader
     GLuint shaderID = glCreateShader(type);
@@ -138,7 +138,7 @@ namespace mke {
     glGetShaderiv(shaderID, GL_COMPILE_STATUS, &success);
     if (!success) {
       glGetShaderInfoLog(shaderID, 1024, NULL, infoLog);
-      throw printFatal("Shader compilation failed!\n\tDetails: '" + static_cast<String>(infoLog) + "'!");
+      throw printError("Shader compilation failed!\n\tDetails: '" + static_cast<String>(infoLog) + "'!");
     }
     return shaderID;
   }
