@@ -10,6 +10,7 @@
 
 // std
 #include <vector>
+#include <unordered_map>
 
 // String stuff
 #include <stdio.h>
@@ -25,6 +26,7 @@ typedef std::string String;
 struct Vertex;
 struct TexCoord;
 struct Texture;
+struct JsonValue; // Defined inside of toolbox/json.hpp
 
 // TYPE VECTOR
 typedef std::vector<GLuint>       v_GLuint;
@@ -33,9 +35,22 @@ typedef std::vector<int>          v_int;
 typedef std::vector<unsigned int> v_uint;
 typedef std::vector<Vertex>       v_Vertex;
 typedef std::vector<TexCoord>     v_TexCoord;
+typedef std::vector<JsonValue>    v_JsonValue;
 
 
 // Structs:
+struct JsonValue {
+  enum class JsonType { Number, String, Bool, Null, Array, Object };
+
+  JsonType type;
+  String stringValue;
+  double numValue;
+  bool boolValue;
+  v_JsonValue arrayValue;
+  std::unordered_map<String, JsonValue> objectValue;
+};
+
+
 struct Version {
   unsigned int major, minor, patch;
 
