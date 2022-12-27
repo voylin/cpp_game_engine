@@ -23,6 +23,9 @@
 #include <cstring>
 typedef std::string String;
 
+typedef unsigned char uchar;
+typedef unsigned short ushort;
+
 struct Vertex;
 struct TexCoord;
 struct Texture;
@@ -37,7 +40,9 @@ typedef std::vector<unsigned char> v_uchar;
 typedef std::vector<Vertex>        v_Vertex;
 typedef std::vector<TexCoord>      v_TexCoord;
 typedef std::vector<JsonValue>     v_JsonValue;
+typedef std::vector<glm::vec2>     v_vec2;
 typedef std::vector<glm::vec3>     v_vec3;
+typedef std::vector<glm::vec4>     v_vec4;
 typedef std::vector<glm::quat>     v_quat;
 typedef std::vector<glm::mat4>     v_mat4;
 
@@ -64,6 +69,9 @@ struct Version {
   const String toSmallString() const { return std::to_string(major)+'.'+std::to_string(minor); }
 };
 
-struct Vertex { float x, y, z; };
-struct TexCoord { float u, v; };
+struct Vertex { 
+  glm::vec3 position, normal, color;
+	glm::vec2 texUV;
+};
+
 struct Texture { GLuint textureID; };
