@@ -46,9 +46,9 @@ namespace mke {
       {1,0}   // V3
     };
 
-    Model model = loadToVAO(vertices, textureCoords, indices, Texture{loadTexture("wall.jpg")});
-
-    Node3D node{model, glm::vec3(0, 0, -2), glm::vec3(0), 1.0f};
+    //Model model = loadToVAO(vertices, textureCoords, indices, Texture{loadTexture("wall.jpg")});
+    Model model = loadGLTF("models/test.gltf");
+    Node3D node{model, glm::vec3(0, 0, -20), glm::vec3(0), 1.0f};
     // End Temp
 
     setDeltaStartTimes();

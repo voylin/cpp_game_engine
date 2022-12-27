@@ -42,7 +42,7 @@ namespace mke {
           case 't':
             value += '\t';
             break;
-          default: throw std::runtime_error("Unexpected character at position " + std::to_string(pos));
+          default: throw std::runtime_error("Unexpected escape character sequence at position " + std::to_string(pos));
         }
       } else value += json[pos]; // Otherwise, add the character to the string value
 
@@ -157,7 +157,7 @@ namespace mke {
       if (json[pos] == ',')
         pos++;
       else if (json[pos] != ']')
-        throw std::runtime_error("Unexpected character at position " + std::to_string(pos));
+        throw std::runtime_error("Unexpected array character at position " + std::to_string(pos));
     }
 
     JsonValue result;
@@ -208,7 +208,7 @@ namespace mke {
       if (json[pos] == ',')
         pos++;
       else if (json[pos] != '}')
-        throw std::runtime_error("Unexpected character at position " + std::to_string(pos));
+        throw std::runtime_error("Unexpected object character at position " + std::to_string(pos));
     }
 
     JsonValue result;
@@ -238,14 +238,28 @@ namespace mke {
   }
 
   
-  JsonValue parseJson(const std::string& json) {
+  JsonValue parseJson(const std::string &json) {
     size_t pos = 0;
     return _parseJsonValue(json, pos);
   }
 
 
-  JsonValue getJsonValue(const JsonValue &value, const JsonType type) {
-    if (value.type != type)
+  JsonValue parseJsonFile(const std::string &filename) {
+    String json, line;
+    std::ifstream jsonFile(filename);
+    if (jsonFile.is_open()) {
+      while (std::getline(jsonFile, line))
+        json += line + '\n';
+    }
+    jsonFile.close();
+    
+    return parseJson(json);
+  }
+
+
+  JsonValue _checkJsonValue(const JsonValue &value, const String &name, const JsonType type) {
+    JsonValue jsonValue = value.objectValue.at(name);
+    if (jsonValue.type != type) {
       switch (type) { 
         case JsonType::Number: throw printError("Expected value type to be a Number!");
         case JsonType::String: throw printError("Expected value type to be a String!");
@@ -255,8 +269,41 @@ namespace mke {
         case JsonType::Object: throw printError("Expected value type to be an Object!");
         default: throw printError("Unknown type!");
       }
-    return value;
+    }
+    return jsonValue;
   }
+
+
+  JsonValue getJsonValue(const JsonValue &value, const String &name) {
+    return value.objectValue.at(name);
+  }
+
+
+  String getJsonString(const JsonValue &value, const String &name) {
+    return _checkJsonValue(value, name, JsonType::String).stringValue;
+  }
+
+
+  double getJsonDouble(const JsonValue &value, const String &name) {
+    return _checkJsonValue(value, name, JsonType::Number).numValue;
+  }
+
+
+  bool getJsonBool(const JsonValue &value, const String &name) {
+    return _checkJsonValue(value, name, JsonType::Bool).boolValue;
+  }
+
+
+  v_JsonValue getJsonArray(const JsonValue &value, const String &name) {
+    return _checkJsonValue(value, name, JsonType::Array).arrayValue;
+  }
+
+
+  dic_JsonValue getJsonObject(const JsonValue &value, const String &name) {
+    return _checkJsonValue(value, name, JsonType::Object).objectValue;
+  }
+
+
 
 
   void _skipWhitespace(const String &json, size_t &pos) {

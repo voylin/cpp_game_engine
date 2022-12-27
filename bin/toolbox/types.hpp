@@ -41,6 +41,9 @@ typedef std::vector<glm::vec3>     v_vec3;
 typedef std::vector<glm::quat>     v_quat;
 typedef std::vector<glm::mat4>     v_mat4;
 
+// TYPE DIC
+typedef std::unordered_map<String, JsonValue>   dic_JsonValue;
+
 
 // Structs:
 enum class JsonType { Number, String, Bool, Null, Array, Object };
@@ -50,7 +53,7 @@ struct JsonValue {
   double numValue;
   bool boolValue;
   v_JsonValue arrayValue;
-  std::unordered_map<String, JsonValue> objectValue;
+  dic_JsonValue objectValue;
 };
 
 
