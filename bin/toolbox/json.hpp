@@ -7,7 +7,11 @@
 
 
 namespace mke {
+  // Parse a JSON string and return the resulting value
   extern JsonValue parseJson(const std::string& json);
+  
+  // Get's and checks if the value is the specified type, else throws an error.
+  extern JsonValue getJsonValue(const JsonValue &value, const JsonType type);
 
   // Parser functions for different value types
   extern JsonValue _parseJsonValue(const std::string& json, size_t& pos);

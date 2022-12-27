@@ -26,22 +26,25 @@ typedef std::string String;
 struct Vertex;
 struct TexCoord;
 struct Texture;
-struct JsonValue; // Defined inside of toolbox/json.hpp
+struct JsonValue;
 
 // TYPE VECTOR
-typedef std::vector<GLuint>       v_GLuint;
-typedef std::vector<float>        v_float;
-typedef std::vector<int>          v_int;
-typedef std::vector<unsigned int> v_uint;
-typedef std::vector<Vertex>       v_Vertex;
-typedef std::vector<TexCoord>     v_TexCoord;
-typedef std::vector<JsonValue>    v_JsonValue;
+typedef std::vector<GLuint>        v_GLuint;
+typedef std::vector<float>         v_float;
+typedef std::vector<int>           v_int;
+typedef std::vector<unsigned int>  v_uint;
+typedef std::vector<unsigned char> v_uchar;
+typedef std::vector<Vertex>        v_Vertex;
+typedef std::vector<TexCoord>      v_TexCoord;
+typedef std::vector<JsonValue>     v_JsonValue;
+typedef std::vector<glm::vec3>     v_vec3;
+typedef std::vector<glm::quat>     v_quat;
+typedef std::vector<glm::mat4>     v_mat4;
 
 
 // Structs:
+enum class JsonType { Number, String, Bool, Null, Array, Object };
 struct JsonValue {
-  enum class JsonType { Number, String, Bool, Null, Array, Object };
-
   JsonType type;
   String stringValue;
   double numValue;

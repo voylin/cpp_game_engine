@@ -50,7 +50,7 @@ namespace mke {
     }
 
     JsonValue result;
-    result.type = JsonValue::JsonType::String;
+    result.type = JsonType::String;
     result.stringValue = value;
     return result;
   }
@@ -102,7 +102,7 @@ namespace mke {
     }
 
     JsonValue result;
-    result.type = JsonValue::JsonType::Number;
+    result.type = JsonType::Number;
     result.numValue = std::stod(value);
     return result;
   }
@@ -110,7 +110,7 @@ namespace mke {
 
   JsonValue _parseJsonBool(const String &json, size_t &pos) {
     JsonValue result;
-    result.type = JsonValue::JsonType::Bool;
+    result.type = JsonType::Bool;
 
     if (json[pos] == 't') {
       result.boolValue = true;
@@ -125,7 +125,7 @@ namespace mke {
 
   JsonValue _parseJsonNull(const String &json, size_t &pos) {
     JsonValue result;
-    result.type = JsonValue::JsonType::Null;
+    result.type = JsonType::Null;
     pos += 4;
     return result;
   }
@@ -161,7 +161,7 @@ namespace mke {
     }
 
     JsonValue result;
-    result.type = JsonValue::JsonType::Array;
+    result.type = JsonType::Array;
     result.arrayValue = values;
     return result;
   }
@@ -212,7 +212,7 @@ namespace mke {
     }
 
     JsonValue result;
-    result.type = JsonValue::JsonType::Object;
+    result.type = JsonType::Object;
     result.objectValue = values;
     return result;
   }
@@ -237,10 +237,25 @@ namespace mke {
     else throw std::runtime_error("Unexpected character at position " + std::to_string(pos));
   }
 
-  // Parse a JSON string and return the resulting value
+  
   JsonValue parseJson(const std::string& json) {
     size_t pos = 0;
     return _parseJsonValue(json, pos);
+  }
+
+
+  JsonValue getJsonValue(const JsonValue &value, const JsonType type) {
+    if (value.type != type)
+      switch (type) { 
+        case JsonType::Number: throw printError("Expected value type to be a Number!");
+        case JsonType::String: throw printError("Expected value type to be a String!");
+        case JsonType::Bool:   throw printError("Expected value type to be a Bool!");
+        case JsonType::Null:   throw printError("Expected value type to be a Null!");
+        case JsonType::Array:  throw printError("Expected value type to be an Array!");
+        case JsonType::Object: throw printError("Expected value type to be an Object!");
+        default: throw printError("Unknown type!");
+      }
+    return value;
   }
 
 
