@@ -1,0 +1,3 @@
+[submodule "meikyuu_engine"]
+	path = meikyuu_engine
+	url = git@github.com:voylin/meikyuu_engine.git
